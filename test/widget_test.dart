@@ -7,7 +7,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:tes/forgotpassword.dart';
+import 'package:tes/login/forgotpassword.dart';
 
 import 'package:tes/main.dart';
 
