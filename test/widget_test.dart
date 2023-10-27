@@ -1,31 +1,83 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
+ 
+//  Widget registButton() {
+//     return Padding(
+//       padding: const EdgeInsets.fromLTRB(0, 20, 0, 10),
+//       child: SizedBox(
+//         height: width * 0.1,
+//         width: width * 0.7,
+//         child: FilledButton.tonal(
+//           onPressed: () 
+//           {
+//             if (formKey.currentState!.validate()) {
+//               FirebaseAuth.instance
+//                   .createUserWithEmailAndPassword(
+//                 email: email.text,
+//                 password: password.text,
+//               )
+//                   .then((value) {
+//                 //--------- การสมัครสำเร็จ --------------
+//                 value.user!.updateDisplayName(name.text);   //-------เพิ่มชื่อผู้ใช้งานระบบ 
 
-import 'package:flutter/material.dart';
-import 'package:flutter_test/flutter_test.dart';
-import 'package:tes/login/forgotpassword.dart';
+//                 Widget okButton = TextButton(
+//                   child: Text("ตกลง"),
+//                   onPressed: () {
+//                     Navigator.pushReplacement(context,
+//                         MaterialPageRoute(builder: (context) => LoginPage2()));
+//                   },
+//                 );
 
-import 'package:tes/main.dart';
+//                 // set up the AlertDialog
+//                 AlertDialog alert = AlertDialog(
+//                   title: Text("การสมัครสำเร็จ"),
+//                   content: Text("กดปุ่ม 'ตกลง' เพื่อไปหน้าเข้าสู่ระบบ"),
+//                   actions: [
+//                     okButton,
+//                   ],
+//                 );
 
-void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(MyApp());
+//                 // show the dialog
+//                 showDialog(
+//                   context: context,
+//                   builder: (BuildContext context) {
+//                     return alert;
+//                   },
+//                 );
+//               }).catchError((error) {
+//                 //---------- เกิดข้อผิดพลาดในการสมัคร -----------------
+//                 print(error.hashCode);
+//                 var errorTxt = "";
+//                 switch (error.hashCode) {
+//                   case 461740379:
+//                     {
+//                       errorTxt = "อีเมลซ้ำ กรุณาตรวจสอบ";
+//                     }
+//                     break;
+//                   case 240054626:
+//                     {
+//                       errorTxt = "รูปแบบอีเมลไม่ถูกต้อง";
+//                     }
+//                     break;
+//                   default:
+//                     {
+//                       errorTxt = error.toString();
+//                     }
+//                     break;
+//                 }
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
-
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
-
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
-  });
-}
+//                 SnackBar snackBar =
+//                     SnackBar(content: Text("เกิดข้อผิดพลาด : " + errorTxt));
+//                 ScaffoldMessenger.of(context).showSnackBar(snackBar);
+//               });
+//             }
+//           },
+//           child: Text(
+//             'ลงทะเบียน',
+//             style: TextStyle(
+//               fontSize: width * 0.04,
+//             ),
+//           ),
+//           // style: FilledButton.styleFrom(fixedSize: ),
+//         ),
+//       ),
+//     );
+//   }

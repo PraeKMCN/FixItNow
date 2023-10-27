@@ -1,150 +1,198 @@
+// import 'dart:collection';
+
 // import 'package:flutter/material.dart';
 
-// class Home extends StatefulWidget {
-//   const Home({Key? key}) : super(key: key);
+// class HomePage extends StatefulWidget {
+//   const HomePage({super.key});
+
 
 //   @override
-//   _HomeState createState() => _HomeState();
+//   State<HomePage> createState() => _HomePageState();
 // }
 
-// class _HomeState extends State<Home> {
-//   int _currentIndex = 0;
-//   final List<Widget> _pages = [
-//     HomePage(),
-//     HistoryPage(),
-//     PersonPage(),
+// class _HomePageState extends State<HomePage> {
+
+  
+
+//   final List<Widget> _screens = [
+//     // HomeScreen(),
+//     // HistoryScreen(),
+//     // ProfileScreen(),
 //   ];
 
+//   void _onTabTapped(int index) {
+//     setState(() {
+//       _currentIndex = index;
+//     });
+//   }
+//    int selectedPageIndex = 0;
 //   @override
 //   Widget build(BuildContext context) {
 //     return Scaffold(
-      
-//       body: _pages[_currentIndex],
-//       bottomNavigationBar: BottomNavigationBar(
-//         currentIndex: _currentIndex,
-//         onTap: (int index) {
-//           setState(() {
-//             _currentIndex = index;
-//           });
-//         },
-//         items: [
-//           BottomNavigationBarItem(
-//             icon: Icon(Icons.home),
-//             label: 'Home',
-//           ),
-//           BottomNavigationBarItem(
-//             icon: Icon(Icons.history),
-//             label: 'History',
-//           ),
-//           BottomNavigationBarItem(
-//             icon: Icon(Icons.person),
-//             label: 'Person',
-//           ),
-//         ],
+//       appBar: AppBar(
+//         title: Text("การจัดการขยะ"),
 //       ),
-//     );
-//   }
-// }
+//       body: SafeArea(
+//         child: Container(
+//           color: Colors.cyan[300],
+//           child: Column(
+//             children: <Widget>[
+//               GridView.count(
+//                 shrinkWrap: true,
+//                 primary: true,
+//                 crossAxisCount: 2,
+//                 children: <Widget>[
+//                   Padding(
+//                     padding: const EdgeInsets.all(8.0),
+//                     child: Container(
+//                         // color: Colors.red,
+//                         decoration: BoxDecoration(
+//                           borderRadius: BorderRadius.circular(25),
+//                           color: Colors.white,
+//                         ),
+//                         child: InkWell(
+//                           child: Stack(
+//                             alignment: Alignment.bottomCenter,
+//                             children: [
+//                               Padding(
+//                                 padding: const EdgeInsets.only(bottom: 20.0),
+//                                 child: Image.asset("assets/img.jpg"),
+//                               ),
+//                               Text(
+//                                 "data",
+//                                 style: TextStyle(fontSize: 24),
+//                               )
+//                             ],
+//                           ),
+//                         )),
+//                   ),
 
-// class HomePage extends StatelessWidget {
-//   const HomePage({Key? key}) : super(key: key);
-
-//   @override
-  
-//   Widget build(BuildContext context) {
-//    return Scaffold(
-//   appBar: AppBar(
-//   title: Text('หน้าหลัก'),
-//   actions: [
-//     Row(
-//       children: [
-//         IconButton(
-//           onPressed: () {
-//             // Handle notification icon tap here
-//           },
-//           icon: Icon(Icons.notifications),tooltip: 'การแจ้งซ่อม',
+// Padding(
+//       padding: const EdgeInsets.all(8.0),
+//       child: Container(
+//         decoration: BoxDecoration(
+//           borderRadius: BorderRadius.circular(25),
+//           color: Colors.white,
 //         ),
-//         Text('การแจ้งซ่อม'),
-//       ],
-//       mainAxisAlignment: MainAxisAlignment.end,
-//     ),
-//   ],
-// ),
-//   body: Center(
-//       child: Column(
-//         mainAxisAlignment: MainAxisAlignment.spaceAround,
-//         children: [
-//           Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          
-//           children: [
-//             Padding(
-//               padding: const EdgeInsets.only(top: 10.0),
-//               child: ElevatedButton(onPressed: ()
-//               {}, 
-//               child: Text('button1'),
-//               style: ButtonStyle(
-//                 fixedSize: MaterialStateProperty.all<Size>(
-//                   Size(100, 50), // set button width to 200 and height to 50
-//                 ),
-//               ),
-//               ),
-//             ),
-//             ElevatedButton(onPressed: (){}, child: Text('button2'),
-//              style: ButtonStyle(
-//     fixedSize: MaterialStateProperty.all<Size>(
-//       Size(100, 50), // set button width to 200 and height to 50
-//     ),
-//   ),
-//             ),
-            
-//              ],
-//           ),
-//           SizedBox(height: 20),
-//           Row(
-//             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//         child: InkWell(
+//           child: Stack(
+//             alignment: Alignment.bottomCenter,
 //             children: [
-//               ElevatedButton(onPressed: (){}, child: Text('button3'),
-//                style: ButtonStyle(
-//     fixedSize: MaterialStateProperty.all<Size>(
-//       Size(200, 50), // set button width to 200 and height to 50
-//     ),
-//   ),
+//               Padding(
+//                 padding: const EdgeInsets.only(bottom: 20.0),
+//                 child: Image.asset("assets/img.jpg"), // You can change the image source
 //               ),
-//               ElevatedButton(onPressed: (){}, child: Text('button4'),
-//                style: ButtonStyle(
-//     fixedSize: MaterialStateProperty.all<Size>(
-//       Size(100, 50), // set button width to 200 and height to 50
-//     ),
-//   ),
+//               Text(
+//                 "data", // You can change the text content
+//                 style: TextStyle(fontSize: 24),
 //               ),
 //             ],
 //           ),
-          
-//         ],
+//         ),
 //       ),
-//     )
-//   ); 
+//     ),
+
+//     // Container 3 (Similar to Container 1)
+//     Padding(
+//       padding: const EdgeInsets.all(8.0),
+//       child: Container(
+//         decoration: BoxDecoration(
+//           borderRadius: BorderRadius.circular(25),
+//           color: Colors.white,
+//         ),
+//         child: InkWell(
+//           child: Stack(
+//             alignment: Alignment.bottomCenter,
+//             children: [
+//               Padding(
+//                 padding: const EdgeInsets.only(bottom: 20.0),
+//                 child: Image.asset("assets/img.jpg"), // You can change the image source
+//               ),
+//               Text(
+//                 "data", // You can change the text content
+//                 style: TextStyle(fontSize: 24),
+//               ),
+//             ],
+//           ),
+//         ),
+//       ),
+//     ),
+
+//     // Container 4 (Similar to Container 1)
+//     Padding(
+//       padding: const EdgeInsets.all(8.0),
+//       child: Container(
+//         decoration: BoxDecoration(
+//           borderRadius: BorderRadius.circular(25),
+//           color: Colors.white,
+//         ),
+//         child: InkWell(
+//           child: Stack(
+//             alignment: Alignment.bottomCenter,
+//             children: [
+//               Padding(
+//                 padding: const EdgeInsets.only(bottom: 20.0),
+//                 child: Image.asset("assets/img.jpg"), // You can change the image source
+//               ),
+//               Text(
+//                 "data", // You can change the text content
+//                 style: TextStyle(fontSize: 24),
+//               ),
+//             ],
+//           ),
+//         ),
+//       ),
+//     ),
+                
+//                 ],
+
+                
+//               ),
+//               Divider(
+//                 color: Colors.grey.shade600,
+//               ),
+
+//               // Center(
+//               //   child: FilledButton(
+//               //     child: Text("กลับหน้าหลัก"),
+//               //     onPressed: () {},
+//               //   ),
+//               // )
+
+
+//             ],
+
+            
+//           ),
+
+//         ),
+      
+      
+//       ),
+//       [selectedPageIndex],
+//       bottomNavigationBar: NavigationBar(onDestinationSelected: (int index ){
+//         setState(() {
+//        selectedPageIndex = index;
+          
+//         });
+//       },
+//       selectedIndex: 0,
+//       destinations: const <NavigationDestination>[NavigationDestination
+//       (selectedIcon: Icon(Icons.home), icon: Icon(Icons.home_outlined),
+//       label: 'หน้าหลัก',),
+
+// NavigationDestination
+//       (selectedIcon: Icon(Icons.book), icon: Icon(Icons.book_online),
+//       label: 'ประวัติ',),
+
+// NavigationDestination
+//       (selectedIcon: Icon(Icons.person), icon: Icon(Icons.person_outline),
+//       label: 'บัญชี',),
+
+//       ],),
+// );
+    
 //   }
-// }
-
-// class HistoryPage extends StatelessWidget {
-//   const HistoryPage({Key? key}) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Center(
-//       child: Text('History Page'),
-//     );
-//   }
-// }
-
-// class PersonPage extends StatelessWidget {
-//   const PersonPage({Key? key}) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Center(
-//       child: Text('Person Page'),
-//     );
-//   }
+  
+  
 // }

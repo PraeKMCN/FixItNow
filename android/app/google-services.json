@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "511232090158",
+    "project_id": "fixitnow-f2a63",
+    "storage_bucket": "fixitnow-f2a63.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:511232090158:android:3723e2ce44db5c32f43fbf",
+        "android_client_info": {
+          "package_name": "com.prae.fixitnow"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "511232090158-9rlpnbh7pjjod6kuk3vt4vu68nhfrps4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCeml0Wx9kRNSk74CVnM9Y0cKAZCnVQj6c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "511232090158-4v7c9pmkjcgrcka5tokp5krn043u82ef.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "511232090158-ds34c9gl3h2o21rab5mhos27ktphj52q.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.tes"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
