@@ -55,7 +55,7 @@ class _ReportFormState extends State<ReportForm> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      appBar: AppBar(backgroundColor:  Color.fromARGB(255, 113, 222, 247),
         leading: IconButton(
           icon: Icon(Icons.arrow_back), // ใส่ไอคอนลูกศรย้อนกลับ
           onPressed: () {
@@ -337,6 +337,10 @@ DropdownButtonFormField<String>(
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(16.0),
         child: ElevatedButton(
+          style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all<Color>(
+                            const Color.fromARGB(255, 113, 222,
+                                247)),),
           onPressed: () async {
             String id = DateTime.now().toString();
             await uploadeStorage(id);
@@ -508,3 +512,6 @@ DropdownButtonFormField<String>(
         child: const Text("แสดงรายการ"));
   }
 }
+
+
+

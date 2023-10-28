@@ -38,7 +38,7 @@
       
 //     );
 //   }
-// }
+// }   
 import 'package:flutter/material.dart';
 import 'package:tes/login/login.dart';
 
@@ -60,17 +60,29 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SizedBox(height: 16.0),
-            Image.asset("assets/img.jpg"),
-            CircularProgressIndicator(),
-          ],
-        ),
+      body: Stack(
+        fit: StackFit.expand,
+        children: [
+          Image.asset(
+            "assets/sp.jpg",
+            fit: BoxFit.cover,
+          ),
+          Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset(
+                  "assets/logo/lo.png", // เพิ่มตำแหน่งโลโก้ของคุณ
+                  height: 500, // ปรับความสูงตามที่คุณต้องการ
+                  width: 500, // ปรับความกว้างตามที่คุณต้องการ
+                ),
+                SizedBox(height: 16.0),
+                CircularProgressIndicator(),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
 }
-

@@ -31,7 +31,7 @@ Widget build(BuildContext context) {
           Container(
             width: 200,
             height: 200,
-            child: PieChartSample(),
+            child: PieChartPage(),
           ),
           SizedBox(height: 20),  // Add some spacing below the pie chart
           ElevatedButton(

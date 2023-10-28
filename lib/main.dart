@@ -25,8 +25,8 @@ void main() async{
 runApp(MaterialApp(
       home: SplashScreen(),
       theme:  ThemeData(
-    primaryColor: Colors.blue, // สีหลัก
-    hintColor: Colors.green, // สีเน้น
+    primaryColor:Color.fromARGB(255, 113, 222, 247), // สีหลัก
+    hintColor: Color.fromARGB(255, 139, 140, 139), // สีเน้น
     textTheme: TextTheme(
       headline1: TextStyle(fontSize: 24, fontWeight: FontWeight.bold), // ตัวหัวข้อ
       bodyText1: TextStyle(fontSize: 16, color: Colors.black), // ข้อความหลัก
