@@ -346,7 +346,7 @@ class _registerState extends State<register> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      appBar: AppBar(backgroundColor:  Color.fromARGB(255, 113, 222, 247),
         title: Text('ลงทะเบียน'),
       ),
       body: Padding(
@@ -424,6 +424,11 @@ class _registerState extends State<register> {
               ),
               SizedBox(height: 16.0),
       ElevatedButton(
+          style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all<Color>(
+                            const Color.fromARGB(255, 113, 222,
+                                247)), // Use the same color as the AppBar
+                      ),
   onPressed: () async {
     if (formKey.currentState!.validate()) {
       try {

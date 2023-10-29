@@ -63,7 +63,11 @@ class ForgotPasswordPage extends StatelessWidget {
     TextEditingController emailController = TextEditingController();
 
     return Scaffold(
-      appBar: AppBar(
+      appBar: AppBar(  
+                        backgroundColor:
+                          Color.fromARGB(255, 113, 222,
+                                247, // Use the same color as the AppBar
+                      ),
         title: Text('ลืมรหัสผ่าน'),
       ),
       body: Padding(
@@ -80,6 +84,11 @@ class ForgotPasswordPage extends StatelessWidget {
             ),
             SizedBox(height: 16.0),
             ElevatedButton(
+                style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all<Color>(
+                            const Color.fromARGB(255, 113, 222,
+                                247)), // Use the same color as the AppBar
+                      ),
               onPressed: () {
                 String email = emailController.text;
                 resetPassword(email); // Call the resetPassword function
