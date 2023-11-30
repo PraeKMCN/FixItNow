@@ -106,22 +106,28 @@ class _ProfileState extends State<Profile> {
               ),
             ),
             SizedBox(height: 30),
-            ElevatedButton(
+            ElevatedButton( style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all<Color>(
+                            const Color.fromARGB(255, 113, 222,
+                                247)),),
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => EditProfileScreen()),
+                  MaterialPageRoute(builder: (context) => Editprofile()),
                 );
               },
               child: Text('แก้ไขข้อมูลผู้ใช้'),
             ),
             SizedBox(height: 20),
            ElevatedButton(
+             style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all<Color>(
+                            Color.fromARGB(255, 248, 103, 103)),),
               onPressed: () {
                 // Log out action
                 _logOut(context);
               },
-              child: Text('Log Out'),
+              child: Text('ออกจากระบบ'),
             ),
           ],
         ),

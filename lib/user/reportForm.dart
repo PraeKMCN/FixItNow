@@ -28,7 +28,7 @@ class _ReportFormState extends State<ReportForm> {
     // Add more room options as needed
     ];
   List listService = [
-    'ช่างไฟ',
+    'ช่างไฟฟ้า',
     'ช่างแอร์',
     'ช่างคอมพิวเตอร์',
     'ช่างปะปา',

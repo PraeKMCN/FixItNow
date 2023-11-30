@@ -13,51 +13,67 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   @override
-Widget build(BuildContext context) {
-  return Scaffold(
-    appBar: AppBar(
-      title: Text(
-        "หน้าหลัก",
-        style: TextStyle(
-          fontSize: 20,
-        ),
-      ),
-      backgroundColor: Color.fromARGB(255, 142, 212, 253),
-      elevation: 0,
-    ),
-    body: Center(
-      child: Column(
-        children: <Widget>[
-          Container(
-            width: 200,
-            height: 200,
-            child: PieChartPage(),
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          "หน้าหลัก",
+          style: TextStyle(
+            fontSize: 20,
           ),
-          SizedBox(height: 20),  // Add some spacing below the pie chart
-          ElevatedButton(
-            onPressed: () {
-              // Add code to navigate to the repair request screen here
-              // For example:
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return ReportForm();
-              }));
-            },
+        ),
+        backgroundColor: Color.fromARGB(255, 142, 212, 253),
+        elevation: 0,
+      ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Text(
+            'สถิติการเรียกใช้บริการงานช่าง', // เพิ่มข้อความเหนือแผนภูมิ
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          Expanded(
+            flex: 2,
             child: Container(
-              width: 100,  // Set the button width
-              height: 30,   // Set the button height
-              child: Center(
-                child: Text(
-                  'แจ้งซ่อม',
-                  style: TextStyle(fontSize: 18),
+              width: 200,
+              height: 200,
+              child: PieChartPage(),
+            ),
+          ),
+          SizedBox(height: 20),
+          Expanded(
+            flex: 1,
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Align(
+                alignment: Alignment.center,
+                child: ElevatedButton(
+                  onPressed: () {
+                    // Add code to navigate to the repair request screen here
+                    // For example:
+                    Navigator.push(context, MaterialPageRoute(builder: (context) {
+                      return ReportForm();
+                    }));
+                  },
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: Color.fromARGB(255, 142, 212, 253),
+                    minimumSize: Size(150, 40),
+                  ),
+                  child: Text(
+                    'แจ้งซ่อม',
+                    style: TextStyle(fontSize: 18),
+                  ),
                 ),
               ),
             ),
           ),
         ],
       ),
-    ),
-  );
-}
+    );
+  }
 }
 
 ////////////////////////////////////////////////////////////////////
@@ -103,7 +119,7 @@ Widget build(BuildContext context) {
 
 
 
-////////////
+//////////////////////////////////////////////////////////////
   // Padding(
                   //   padding: const EdgeInsets.all(20.0),
                   //   child: GestureDetector(

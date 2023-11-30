@@ -1,4 +1,3 @@
-//////////////////////////////////////////////////////////////////////////////////
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +15,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-
+ bool obscurePassword = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,6 +24,7 @@ class _LoginPageState extends State<LoginPage> {
         title: const Text('เข้าสู่ระบบ'),
       ),
       body: SingleChildScrollView(
+        
         child: Stack(
           children: [
             // Background image
@@ -76,25 +76,37 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   const SizedBox(height: 16.0),
 
-                  TextFormField(
-                    controller: passwordController,
-                    obscureText: true,
-                    decoration: const InputDecoration(
-                      labelText: 'รหัสผ่าน',
-                      prefixIcon: Icon(Icons.lock),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Color.fromARGB(255, 113, 222, 247),
-                        ), // สีขอบเมื่อรับโฟกัส
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color: Color.fromARGB(255, 150, 144, 144)),
-                      ),
-                    ),
-                  ),
+         
+TextFormField(
+  controller: passwordController,
+  obscureText: obscurePassword,
+  decoration: InputDecoration(
+    labelText: 'รหัสผ่าน',
+    prefixIcon: Icon(Icons.lock),
+    focusedBorder: OutlineInputBorder(
+      borderSide: BorderSide(
+        color: Color.fromARGB(255, 113, 222, 247),
+      ), // สีขอบเมื่อรับโฟกัส
+    ),
+    enabledBorder: OutlineInputBorder(
+      borderSide: BorderSide(
+        color: Color.fromARGB(255, 150, 144, 144),
+      ),
+    ),
+    suffixIcon: IconButton(
+      onPressed: () {
+        setState(() {
+          obscurePassword = !obscurePassword; // สลับค่าระหัสผ่านเพื่อแสดงหรือซ่อน
+        });
+      },
+      icon: Icon(
+        obscurePassword ? Icons.visibility : Icons.visibility_off,
+      ),
+    ),
+  ),
+),
 
-                  const SizedBox(height: 16.0),
+                   SizedBox(height: 16.0),
                   SizedBox(
                     width: 200,
                     child: ElevatedButton(
