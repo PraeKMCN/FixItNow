@@ -26,6 +26,7 @@ class _ProfileState extends State<Profile> {
   String email = "";
   String phonenumber = "";
   String password = "";
+  String type = "";
 
   @override
   void initState() {
@@ -48,6 +49,7 @@ class _ProfileState extends State<Profile> {
         email = profileData['email'];
         phonenumber = profileData['phonenumber'];
         password = profileData['password'];
+        type = profileData['type'];
       });
     }
   } catch (e) {
@@ -91,13 +93,7 @@ class _ProfileState extends State<Profile> {
                 color: Colors.grey,
               ),
             ),
-            // Text(
-            //   'รหัสผ่าน: $password',
-            //   style: TextStyle(
-            //     fontSize: 18,
-            //     color: Colors.grey,
-            //   ),
-            // ),
+           
             Text(
               'เบอร์โทรศัพท์: $phonenumber',
               style: TextStyle(
@@ -105,6 +101,14 @@ class _ProfileState extends State<Profile> {
                 color: Colors.grey,
               ),
             ),
+ Text(
+              'Type: $type',
+              style: TextStyle(
+                fontSize: 18,
+                color: Colors.grey,
+              ),
+            ),
+
             SizedBox(height: 30),
             ElevatedButton( style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all<Color>(
