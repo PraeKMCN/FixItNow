@@ -203,7 +203,257 @@
 //   "ช่างคอมพิวเตอร์": 0,
 // };
 
-///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////โค้ดปัจจุบัน
+
+// import 'package:cloud_firestore/cloud_firestore.dart';
+// import 'package:flutter/material.dart';
+// import 'package:pie_chart/pie_chart.dart';
+
+// class PieChartPage extends StatefulWidget {
+//   @override
+//   _PieChartPageState createState() => _PieChartPageState();
+// }
+
+// class _PieChartPageState extends State<PieChartPage> {
+//   int key = 0;
+//   late List<Expense> _expense = [];
+
+//   Map<String, double> getserviceData() {
+//     Map<String, double> catMap = {};
+//     for (var item in _expense) {
+//       if (catMap.containsKey(item.service) == false) {
+//         catMap[item.service] = 1;
+//       } else {
+//         catMap.update(item.service, (value) => value + 1);
+//       }
+//     }
+//     return catMap;
+//   }
+
+//   List<Color> colorList = [
+//     const Color.fromRGBO(82, 98, 255, 1),
+//     const Color.fromRGBO(46, 198, 255, 1),
+//     const Color.fromRGBO(123, 201, 82, 1),
+//     const Color.fromRGBO(255, 171, 67, 1),
+//   ];
+
+//   Widget pieChartExampleOne() {
+//     return PieChart(
+//       key: ValueKey(key),
+//       dataMap: getserviceData(),
+//       initialAngleInDegree: 0,
+//       animationDuration: const Duration(milliseconds: 2000),
+//       chartType: ChartType.ring,
+//       chartRadius: MediaQuery.of(context).size.width / 4,
+//       ringStrokeWidth: 150,
+//       colorList: colorList,
+//       chartLegendSpacing: 100,
+//       chartValuesOptions: const ChartValuesOptions(
+//         showChartValuesOutside: true,
+//         showChartValuesInPercentage: true,
+//         showChartValueBackground: true,
+//         showChartValues: true,
+//         chartValueStyle:
+//             TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
+//       ),
+//       legendOptions: const LegendOptions(
+//         showLegendsInRow: false,
+//         showLegends: true,
+//         legendShape: BoxShape.rectangle,
+//         legendPosition: LegendPosition.bottom,
+//       ),
+//     );
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     final Stream<QuerySnapshot> expStream =
+//         FirebaseFirestore.instance.collection('users').snapshots();
+
+//     void getExpfromSanapshot(snapshot) {
+//       if (snapshot.docs.isNotEmpty) {
+//         _expense = [];
+//         for (int i = 0; i < snapshot.docs.length; i++) {
+//           var a = snapshot.docs[i];
+//           Expense exp = Expense.fromJson(a.data());
+//           _expense.add(exp);
+//         }
+//       }
+//     }
+
+//     return Scaffold(
+// //appBar: AppBar(
+// //   title: Align(
+// //     alignment: Alignment.centerLeft,
+// //     child: Text(
+// //       "สถิติการเรียกใช้บริการงานช่างแต่ละหมวด",
+// //       style: TextStyle(
+// //         color: Color.fromARGB(255, 0, 7, 14),
+// //       ),
+// //     ),
+// //   ),
+// //   centerTitle: false, // ไม่จัดตำแหน่งข้อความตรงกลาง
+// //   backgroundColor: Colors.transparent,
+// //   elevation: 0,
+// // ),
+
+
+//       body: Column(
+//         mainAxisAlignment: MainAxisAlignment.center,
+//         crossAxisAlignment: CrossAxisAlignment.center,
+//         children: [
+//           const SizedBox(
+//             height: 50,
+//           ),
+//           StreamBuilder<Object>(
+//             stream: expStream,
+//             builder: (context, snapshot) {
+//               if (snapshot.hasError) {
+//                 return const Text("Something went wrong");
+//               }
+//               if (snapshot.connectionState == ConnectionState.waiting) {
+//                 return const CircularProgressIndicator();
+//               }
+//               final data = snapshot.requireData;
+//               getExpfromSanapshot(data);
+//               return pieChartExampleOne();
+//             },
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }
+
+// class Expense {
+//   final String service;
+
+//   Expense({required this.service});
+
+//   factory Expense.fromJson(Map<String, dynamic> json) {
+//     return Expense(service: json['service'] as String);
+//   }
+// }
+
+////////////////////////////////////////////////
+
+// import 'package:cloud_firestore/cloud_firestore.dart';
+// import 'package:flutter/material.dart';
+// import 'package:pie_chart/pie_chart.dart';
+
+// class PieChartPage extends StatefulWidget {
+//   @override
+//   _PieChartPageState createState() => _PieChartPageState();
+// }
+
+// class _PieChartPageState extends State<PieChartPage> {
+//   int key = 0;
+//   late List<Expense> _expense = [];
+
+//   Map<String, double> getserviceData() {
+//     Map<String, double> catMap = {};
+//     for (var item in _expense) {
+//       if (catMap.containsKey(item.service) == false) {
+//         catMap[item.service] = 1;
+//       } else {
+//         catMap.update(item.service, (value) => value + 1);
+//       }
+//     }
+//     return catMap;
+//   }
+
+//   List<Color> colorList = [
+//     const Color.fromRGBO(82, 98, 255, 1),
+//     const Color.fromRGBO(46, 198, 255, 1),
+//     const Color.fromRGBO(123, 201, 82, 1),
+//     const Color.fromRGBO(255, 171, 67, 1),
+//   ];
+// Widget pieChartExampleOne() {
+//   return PieChart(
+//     key: ValueKey(key),
+//     dataMap: getserviceData(),
+//     initialAngleInDegree: 1,
+//     animationDuration: const Duration(milliseconds: 2000),
+//     chartType: ChartType.ring,
+//     chartRadius: MediaQuery.of(context).size.width * 0.2, // Adjusted chartRadius to 40% of screen width
+//     ringStrokeWidth: 120, // Adjusted ringStrokeWidth
+//     colorList: colorList,
+//     chartLegendSpacing: 100,
+//     chartValuesOptions: const ChartValuesOptions(
+//       showChartValuesOutside: true,
+//       showChartValuesInPercentage: true,
+//       showChartValueBackground: true,
+//       showChartValues: true,
+//       chartValueStyle:
+//           TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
+//     ),
+//     legendOptions: const LegendOptions(
+//       showLegendsInRow: false,
+//       showLegends: true,
+//       legendShape: BoxShape.rectangle,
+//       legendPosition: LegendPosition.bottom,
+//     ),
+//   );
+// }
+
+
+//   @override
+//   Widget build(BuildContext context) {
+//     final Stream<QuerySnapshot> expStream =
+//         FirebaseFirestore.instance.collection('users').snapshots();
+
+//     void getExpfromSanapshot(snapshot) {
+//       if (snapshot.docs.isNotEmpty) {
+//         _expense = [];
+//         for (int i = 0; i < snapshot.docs.length; i++) {
+//           var a = snapshot.docs[i];
+//           Expense exp = Expense.fromJson(a.data());
+//           _expense.add(exp);
+//         }
+//       }
+//     }
+
+//     return Scaffold(
+//       body: Column(
+//         mainAxisAlignment: MainAxisAlignment.center,
+//         crossAxisAlignment: CrossAxisAlignment.center,
+//         children: [
+//           const SizedBox(
+//             height: 10,
+//           ),
+//           Expanded(
+//             child: SingleChildScrollView(
+//               child: StreamBuilder<Object>(
+//                 stream: expStream,
+//                 builder: (context, snapshot) {
+//                   if (snapshot.hasError) {
+//                     return const Text("Something went wrong");
+//                   }
+//                   if (snapshot.connectionState == ConnectionState.waiting) {
+//                     return const CircularProgressIndicator();
+//                   }
+//                   final data = snapshot.requireData;
+//                   getExpfromSanapshot(data);
+//                   return pieChartExampleOne();
+//                 },
+//               ),
+//             ),
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }
+
+// class Expense {
+//   final String service;
+
+//   Expense({required this.service});
+
+//   factory Expense.fromJson(Map<String, dynamic> json) {
+//     return Expense(service: json['service'] as String);
+//   }
+// }
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -238,32 +488,32 @@ class _PieChartPageState extends State<PieChartPage> {
   ];
 
   Widget pieChartExampleOne() {
-    return PieChart(
-      key: ValueKey(key),
-      dataMap: getserviceData(),
-      initialAngleInDegree: 0,
-      animationDuration: const Duration(milliseconds: 2000),
-      chartType: ChartType.ring,
-      chartRadius: MediaQuery.of(context).size.width / 4,
-      ringStrokeWidth: 150,
-      colorList: colorList,
-      chartLegendSpacing: 100,
-      chartValuesOptions: const ChartValuesOptions(
-        showChartValuesOutside: true,
-        showChartValuesInPercentage: true,
-        showChartValueBackground: true,
-        showChartValues: true,
-        chartValueStyle:
-            TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
-      ),
-      legendOptions: const LegendOptions(
-        showLegendsInRow: false,
-        showLegends: true,
-        legendShape: BoxShape.rectangle,
-        legendPosition: LegendPosition.bottom,
-      ),
-    );
-  }
+  return PieChart(
+    key: ValueKey(key),
+    dataMap: getserviceData(),
+    initialAngleInDegree: 270,
+    animationDuration: const Duration(milliseconds: 2000),
+    chartType: ChartType.ring,
+    chartRadius: MediaQuery.of(context).size.width * 0.1, // ปรับขนาด Pie Chart ให้เล็กลง
+    ringStrokeWidth: 90,
+    colorList: colorList,
+    chartLegendSpacing: 50,
+    chartValuesOptions: const ChartValuesOptions(
+      showChartValuesOutside: true,
+      showChartValuesInPercentage: true,
+      showChartValueBackground: true,
+      showChartValues: true,
+      chartValueStyle: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
+    ),
+    legendOptions: const LegendOptions(
+      showLegendsInRow: false,
+      showLegends: true,
+      legendShape: BoxShape.rectangle,
+      legendPosition: LegendPosition.right,
+    ),
+  );
+}
+
 
   @override
   Widget build(BuildContext context) {
@@ -282,44 +532,29 @@ class _PieChartPageState extends State<PieChartPage> {
     }
 
     return Scaffold(
-//appBar: AppBar(
-//   title: Align(
-//     alignment: Alignment.centerLeft,
-//     child: Text(
-//       "สถิติการเรียกใช้บริการงานช่างแต่ละหมวด",
-//       style: TextStyle(
-//         color: Color.fromARGB(255, 0, 7, 14),
-//       ),
-//     ),
-//   ),
-//   centerTitle: false, // ไม่จัดตำแหน่งข้อความตรงกลาง
-//   backgroundColor: Colors.transparent,
-//   elevation: 0,
-// ),
-
-
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          const SizedBox(
-            height: 50,
-          ),
-          StreamBuilder<Object>(
-            stream: expStream,
-            builder: (context, snapshot) {
-              if (snapshot.hasError) {
-                return const Text("Something went wrong");
-              }
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return const CircularProgressIndicator();
-              }
-              final data = snapshot.requireData;
-              getExpfromSanapshot(data);
-              return pieChartExampleOne();
-            },
-          ),
-        ],
+      body: StreamBuilder<Object>(
+        stream: expStream,
+        builder: (context, snapshot) {
+          if (snapshot.hasError) {
+            return Text("Something went wrong");
+          }
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(child: CircularProgressIndicator());
+          }
+          final data = snapshot.requireData;
+          getExpfromSanapshot(data);
+          return Center(
+            child: Container(
+              color: Colors.grey[200],
+              padding: EdgeInsets.all(8.0),
+              child: SizedBox(
+                height: MediaQuery.of(context).size.width,
+                width: MediaQuery.of(context).size.width,
+                child: pieChartExampleOne(),
+              ),
+            ),
+          );
+        },
       ),
     );
   }

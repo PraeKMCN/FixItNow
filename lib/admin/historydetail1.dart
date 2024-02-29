@@ -1,18 +1,17 @@
-// // ignore_for_file: camel_case_types
 
 // import 'package:flutter/material.dart';
 // import 'package:cloud_firestore/cloud_firestore.dart';
 
-// class historydetail extends StatefulWidget {
+// class Hisdetail extends StatefulWidget {
 //   final Map<String, dynamic> data;
 
-//   historydetail.historydetail({required this.data});
+//   Hisdetail({required this.data});
 
 //   @override
-//   State<historydetail> createState() => _historydetailState();
+//   State<Hisdetail> createState() => _HisdetailState();
 // }
 
-// class _historydetailState extends State<historydetail> {
+// class _HisdetailState extends State<Hisdetail> {
 //   Map<String, dynamic> firestoreData = {};
 
 //   @override
@@ -49,10 +48,11 @@
 //               Text("ชั้น: ${widget.data["floor"]}"),
 //               Text("ห้อง: ${widget.data["room"]}"),
 //               Text("ปัญหา: ${widget.data["problem"]}"),
+              
 //               if (widget.data["url"] != null)
 //                 Image.network(widget.data["url"]), // แสดงรูปภาพถ้ามี URL
 //               Text("ว/ด/ป,เวลา: ${widget.data["dateTime"]}"),
-
+              
 //               // เพิ่มรายละเอียดอื่น ๆ ตามความต้องการ
 //               Text("รายละเอียดจาก Firestore: ${firestoreData["additionalInfo"] ?? 'ไม่มีข้อมูล'}"),
 //             ],
@@ -62,6 +62,8 @@
 //     );
 //   }
 // }
+
+
 
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';

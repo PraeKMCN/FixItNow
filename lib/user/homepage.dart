@@ -333,11 +333,12 @@ class _HomePageState extends State<HomePage> {
   int selectedPageIndex = 0;
 
   final List<Widget> _pages = [
-    HomeScreen(),
-    History(),
+    const HomeScreen(),
+    History(data: null,),
     Profile(),
     
   ];
+  
 
   @override
   Widget build(BuildContext context) {

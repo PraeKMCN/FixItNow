@@ -295,10 +295,13 @@
 // }
 
 /////////////////////////////////////////////////////////
+
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:image_picker/image_picker.dart';
 
 class Editprofile extends StatefulWidget {
   const Editprofile({Key? key}) : super(key: key);
@@ -309,14 +312,14 @@ class Editprofile extends StatefulWidget {
 
 class _EditprofileState extends State<Editprofile> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  final CollectionReference profile = FirebaseFirestore.instance.collection('profile');
+  final CollectionReference profile =
+      FirebaseFirestore.instance.collection('profile');
 
   String name = "";
   String email = "";
   String phonenumber = "";
   String password = "";
-
-  bool isEditing = false;
+  String imageUrl = ""; // เพิ่มตัวแปร imageUrl เพื่อเก็บ URL ของรูปภาพ
 
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
@@ -352,65 +355,63 @@ class _EditprofileState extends State<Editprofile> {
       print("Error fetching data: $e");
     }
   }
-Future<void> updateUserData() async {
-  try {
-    User? user = _auth.currentUser;
-    String uid = user!.uid;
 
-    await profile.doc(uid).update({
-      'name': nameController.text,
-      'email': emailController.text,
-      'phonenumber': phonenumberController.text,
-      'password': passwordController.text,
-    });
+  Future<void> updateUserData() async {
+    try {
+      User? user = _auth.currentUser;
+      String uid = user!.uid;
 
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('ข้อมูลถูกอัปเดตแล้ว')));
-  } catch (e) {
-    print("Error updating data: $e");
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('เกิดข้อผิดพลาดในการอัปเดตข้อมูล')));
+      await profile.doc(uid).update({
+        'name': name,
+        'email': email,
+        'phonenumber': phonenumber,
+        'password': password,
+      });
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('ข้อมูลถูกอัปเดตแล้ว')),
+      );
+
+      Navigator.pop(context);
+    } catch (e) {
+      print("Error updating data: $e");
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('เกิดข้อผิดพลาดในการอัปเดตข้อมูล')),
+      );
+    }
   }
-}
-Future<void> checkUpdatedData() async {
-  User? user = _auth.currentUser;
-  String uid = user!.uid;
 
-  DocumentSnapshot profileData = await profile.doc(uid).get();
-  if (profileData.exists) {
-    String updatedName = profileData['name'];
-    String updatedEmail = profileData['email'];
-    String updatedPhonenumber = profileData['phonenumber'];
-    String updatedPassword = profileData['password'];
-    
-    print('Updated Name: $updatedName');
-    print('Updated Email: $updatedEmail');
-    print('Updated Phone Number: $updatedPhonenumber');
-    print('Updated Password: $updatedPassword');
+  Future<void> _pickImage(ImageSource source) async {
+    final pickedImage = await ImagePicker().pickImage(source: source);
+    if (pickedImage != null) {
+      setState(() {
+        imageUrl = pickedImage.path; // เก็บ URL ของรูปภาพ
+      });
+    }
   }
-}
-
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('แก้ไขโปรไฟล์ของคุณ'),
-        backgroundColor: Color.fromARGB(255, 142, 212, 253),
+        title: Text("ประวัติการแจ้งซ่อม", style: TextStyle(fontWeight: FontWeight.bold)),
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [
+                Color(0xFF3EBACE),
+                Color(0xFF11998E),
+              ],
+            ),
+          ),
+        ),
         actions: [
           IconButton(
-            icon: Icon(isEditing ? Icons.save : Icons.edit),
+            icon: Icon(Icons.save),
             onPressed: () {
-              if (isEditing) {
-                nameController.text = name;
-                emailController.text = email;
-                phonenumberController.text = phonenumber;
-                passwordController.text = password;
-              }
-              setState(() {
-                isEditing = !isEditing;
-                if (!isEditing) {
-                  updateUserData();
-                }
-              });
+              updateUserData();
             },
           ),
         ],
@@ -422,15 +423,88 @@ Future<void> checkUpdatedData() async {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                CircleAvatar(
-                  radius: 100,
-                  backgroundImage: AssetImage('assets/profile/profilepicture.png'),
+                InkWell(
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: Text("เลือกรูปภาพ"),
+                          actions: <Widget>[
+                            TextButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                                _pickImage(ImageSource.camera);
+                              },
+                              child: Text('กล้องถ่าย'),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                                _pickImage(ImageSource.gallery);
+                              },
+                              child: Text('เลือกรูปจากแกลอรี่'),
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  },
+                  child: Stack(
+                    children: [
+ CircleAvatar(
+  radius: 100,
+  backgroundImage: imageUrl.isNotEmpty ? Image.file(File(imageUrl)).image : AssetImage('assets/profile.jpg'),
+),
+
+
+                      Positioned(
+                        bottom: 0,
+                        right: 0,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Colors.white,
+                          ),
+                          child: IconButton(
+                            icon: Icon(Icons.camera_alt),
+                            onPressed: () {
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: Text("เลือกรูปภาพ"),
+                                    actions: <Widget>[
+                                      TextButton(
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                          _pickImage(ImageSource.camera);
+                                        },
+                                        child: Text('กล้องถ่าย'),
+                                      ),
+                                      TextButton(
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                          _pickImage(ImageSource.gallery);
+                                        },
+                                        child: Text('เลือกรูปจากแกลอรี่'),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                            },
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
                 SizedBox(height: 20),
-                _buildProfileField("ชื่อ-สกุล", nameController),
-                _buildProfileField("อีเมล", emailController),
-                _buildProfileField("รหัสผ่าน", passwordController),
-                _buildProfileField("เบอร์โทรศัพท์", phonenumberController),
+                _buildProfileField("ชื่อ-สกุล", nameController, (value) => name = value),
+                _buildProfileField("อีเมล", emailController, (value) => email = value),
+                _buildProfileField("รหัสผ่าน", passwordController, (value) => password = value),
+                _buildProfileField("เบอร์โทรศัพท์", phonenumberController, (value) => phonenumber = value),
               ],
             ),
           ),
@@ -439,7 +513,7 @@ Future<void> checkUpdatedData() async {
     );
   }
 
-  Widget _buildProfileField(String label, TextEditingController controller) {
+  Widget _buildProfileField(String label, TextEditingController controller, Function(String) onChanged) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: Row(
@@ -448,7 +522,7 @@ Future<void> checkUpdatedData() async {
           Text(
             label,
             style: TextStyle(
-              fontSize: 20,
+              fontSize: 18,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -456,7 +530,14 @@ Future<void> checkUpdatedData() async {
           Expanded(
             child: TextFormField(
               controller: controller,
-              enabled: isEditing,
+              onChanged: onChanged,
+              style: TextStyle(fontSize: 16),
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Theme.of(context).primaryColor),
+                ),
+              ),
             ),
           ),
         ],
@@ -464,5 +545,3 @@ Future<void> checkUpdatedData() async {
     );
   }
 }
-
-

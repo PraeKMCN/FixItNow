@@ -4,18 +4,18 @@
 // import 'package:tes/login/login.dart';
 // import 'package:tes/profile/edit_profile.dart';
 
-// class Profile extends StatefulWidget {
-//   const Profile({Key? key}) : super(key: key);
+// class Profileaddmin extends StatefulWidget {
+//   const Profileaddmin({Key? key}) : super(key: key);
 
 //   @override
-//   _ProfileState createState() => _ProfileState();
+//   _ProfileaddminState createState() => _ProfileaddminState();
 // }
 
-// class _ProfileState extends State<Profile> {
+// class _ProfileaddminState extends State<Profileaddmin> {
 //   final FirebaseAuth _auth = FirebaseAuth.instance;
 //  void _logOut(BuildContext context) async {
 //     await _auth.signOut();
-//     Navigator.of(context).pop();
+//     // Navigator.of(context).pop();
 //     // Redirect to the login page after successful sign-out
 //     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginPage()));
 //   }
@@ -139,21 +139,22 @@
 //     );
 //   }
 // }
-/////////////////////////////////////////////////
+
+
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:tes/admin/profileaddmin/editpro.dart';
 import 'package:tes/login/login.dart';
-import 'package:tes/profile/edit_profile.dart';
 
-class Profile extends StatefulWidget {
-  const Profile({Key? key}) : super(key: key);
+class Profileaddmin extends StatefulWidget {
+  const Profileaddmin({Key? key}) : super(key: key);
 
   @override
-  _ProfileState createState() => _ProfileState();
+  _ProfileaddminState createState() => _ProfileaddminState();
 }
 
-class _ProfileState extends State<Profile> {
+class _ProfileaddminState extends State<Profileaddmin> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final CollectionReference profile = FirebaseFirestore.instance.collection('profile');
 
@@ -327,7 +328,7 @@ class _ProfileState extends State<Profile> {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => Editprofile()),
+                    MaterialPageRoute(builder: (context) => editproadd()),
                   );
                 },
                 child: Text(

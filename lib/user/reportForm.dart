@@ -16,7 +16,7 @@ class _ReportFormState extends State<ReportForm> {
   final _formKey = GlobalKey<FormState>();
   File? _imageFile; // Variable to hold the selected image file
   DateTime? _selectedDate; // Variable to hold the selected date
- 
+
   final auth = FirebaseAuth.instance;
   var room = TextEditingController();
   var dateTime = TextEditingController();
@@ -26,7 +26,7 @@ class _ReportFormState extends State<ReportForm> {
   String urlFile = "";
   List roomOptions = [
     // Add more room options as needed
-    ];
+  ];
   List listService = [
     'ช่างไฟฟ้า',
     'ช่างแอร์',
@@ -46,8 +46,7 @@ class _ReportFormState extends State<ReportForm> {
     // Add more room options as needed
   ];
 
-
-  String? selectedRoom, selectedBuild,selectedFloor,selectedService;
+  String? selectedRoom, selectedBuild, selectedFloor, selectedService;
   List listItemsR = [];
   List listItemsF = [];
   List listItemsS = [];
@@ -55,15 +54,31 @@ class _ReportFormState extends State<ReportForm> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(backgroundColor:  Color.fromARGB(255, 113, 222, 247),
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back), // ใส่ไอคอนลูกศรย้อนกลับ
-          onPressed: () {
-            Navigator.of(context)
-                .pop(); // ใช้ Navigator.pop() เพื่อกลับไปหน้าก่อนหน้านี้
-          },
+      // appBar: AppBar(backgroundColor:  Color.fromARGB(255, 113, 222, 247),
+      //   leading: IconButton(
+      //     icon: Icon(Icons.arrow_back), // ใส่ไอคอนลูกศรย้อนกลับ
+      //     onPressed: () {
+      //       Navigator.of(context)
+      //           .pop(); // ใช้ Navigator.pop() เพื่อกลับไปหน้าก่อนหน้านี้
+      //     },
+      //   ),
+      //   title: Text('การแจ้งปัญหา'),
+      // ),
+
+      appBar: AppBar(
+        title: const Text("การแจ้งปัญหา"),
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [
+                Color(0xFF3EBACE),
+                Color(0xFF11998E),
+              ],
+            ),
+          ),
         ),
-        title: Text('การแจ้งปัญหา'),
       ),
       body: Form(
         key: _formKey,
@@ -113,36 +128,33 @@ class _ReportFormState extends State<ReportForm> {
 //               },
 //             ),
 
-
-DropdownButtonFormField<String>(
-  decoration: InputDecoration(
-    labelText: 'หมวดช่าง',
-    border: OutlineInputBorder(),
-  ),
-  value: selectedService,
-  onChanged: (Value) {
-    setState(() {
-      selectedService = Value;
-    });
-  },
-  items: listService.map((listService) {
-    return DropdownMenuItem<String>(
-      value: listService,
-      child: Text(listService),
-    );
-  }).toList(),
-  validator: (value) {
-    if (value == null || value.isEmpty) {
-      return 'กรุณาเลือกหมวดช่าง';
-    }
-    return null;
-  },
-),
+            DropdownButtonFormField<String>(
+              decoration: InputDecoration(
+                labelText: 'หมวดช่าง',
+                border: OutlineInputBorder(),
+              ),
+              value: selectedService,
+              onChanged: (Value) {
+                setState(() {
+                  selectedService = Value;
+                });
+              },
+              items: listService.map((listService) {
+                return DropdownMenuItem<String>(
+                  value: listService,
+                  child: Text(listService),
+                );
+              }).toList(),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'กรุณาเลือกหมวดช่าง';
+                }
+                return null;
+              },
+            ),
 
             SizedBox(height: 16.0),
 
-             
-            
             DropdownButtonFormField<String>(
               decoration: InputDecoration(
                 labelText: 'อาคาร',
@@ -212,19 +224,21 @@ DropdownButtonFormField<String>(
                   print("$selectedBuild-$selectedFloor");
                   selectedFloor = newValue;
                   FirebaseFirestore.instance
-              .collection("Building")
-              .doc(selectedBuild!.split(" ")[1]+"-F"+selectedFloor!.split(" ")[1])
-              .snapshots()
-              .listen((event) {
-            setState(() {
-              listItemsR = [];
-              if (event.data() != null) listItemsR.add(event.data());
-              // print(listItemsR.toString());
-              // print(listItemsR[0]["room"]);
-              // print(roomOptions);
-              roomOptions = listItemsR[0]["room"];
-            });
-          });
+                      .collection("Building")
+                      .doc(selectedBuild!.split(" ")[1] +
+                          "-F" +
+                          selectedFloor!.split(" ")[1])
+                      .snapshots()
+                      .listen((event) {
+                    setState(() {
+                      listItemsR = [];
+                      if (event.data() != null) listItemsR.add(event.data());
+                      // print(listItemsR.toString());
+                      // print(listItemsR[0]["room"]);
+                      // print(roomOptions);
+                      roomOptions = listItemsR[0]["room"];
+                    });
+                  });
                 });
               },
               items: listItemsF.map((roomOption) {
@@ -313,24 +327,99 @@ DropdownButtonFormField<String>(
             SizedBox(height: 16.0),
 
             // Image upload button and selected image display
-            GestureDetector(
-              onTap: _pickImage,
-              child: Container(
-                width: double.infinity,
-                height: 200, // กำหนดความสูง
-                decoration: BoxDecoration(
-                  border: Border.all(),
-                ),
-                child: _imageFile == null
-                    ? Center(
-                        child: Icon(
-                          Icons.camera_alt,
-                          size: 50.0,
+            // GestureDetector for image selection
+            // GestureDetector for image selection from gallery
+       GestureDetector(
+  onTap: () {
+    // Show dialog for selecting image source
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(
+            "เลือกที่มาของรูปภาพ",
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              InkWell(
+                onTap: () {
+                  Navigator.pop(context);
+                  _takePicture();
+                },
+                child: Padding(
+                  padding: EdgeInsets.symmetric(vertical: 8.0),
+                  child: Row(
+                    children: [
+                      Icon(Icons.camera_alt, color: Colors.blue),
+                      SizedBox(width: 8.0),
+                      Text(
+                        "กล้อง",
+                        style: TextStyle(
+                          color: Colors.blue,
+                          fontSize: 16.0,
                         ),
-                      )
-                    : Image.file(_imageFile!, fit: BoxFit.cover),
+                      ),
+                    ],
+                  ),
+                ),
               ),
+              InkWell(
+                onTap: () {
+                  Navigator.pop(context);
+                  _pickImage();
+                },
+                child: Padding(
+                  padding: EdgeInsets.symmetric(vertical: 8.0),
+                  child: Row(
+                    children: [
+                      Icon(Icons.photo_library, color: Colors.green),
+                      SizedBox(width: 8.0),
+                      Text(
+                        "แกลเลอรี่",
+                        style: TextStyle(
+                          color: Colors.green,
+                          fontSize: 16.0,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  },
+  child: Container(
+    width: double.infinity,
+    height: 200,
+    decoration: BoxDecoration(
+      border: Border.all(color: Colors.grey[400]!),
+      borderRadius: BorderRadius.circular(10.0),
+    ),
+    child: _imageFile == null
+        ? Center(
+            child: Icon(
+              Icons.camera_alt,
+              size: 50.0,
+              color: Colors.grey[400],
             ),
+          )
+        : ClipRRect(
+            borderRadius: BorderRadius.circular(10.0),
+            child: Image.file(
+              _imageFile!,
+              fit: BoxFit.cover,
+            ),
+          ),
+  ),
+),
+
+
           ],
         ),
       ),
@@ -338,16 +427,17 @@ DropdownButtonFormField<String>(
         padding: const EdgeInsets.all(16.0),
         child: ElevatedButton(
           style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all<Color>(
-                            const Color.fromARGB(255, 113, 222,
-                                247)),),
+            backgroundColor: MaterialStateProperty.all<Color>(
+                Color.fromARGB(255, 22, 196, 181)),
+          ),
           onPressed: () async {
             String id = DateTime.now().toString();
+
             await uploadeStorage(id);
             // print("url:  "+ uploadeStorage(id).toString());
             // print(url);
             // Add form submission logic here
-            if (_formKey.currentState!.validate() && urlFile != null) { 
+            if (_formKey.currentState!.validate() && urlFile != null) {
               //   // Form is valid, process the data
               //   // Example: Submit the data to a server
 
@@ -361,8 +451,8 @@ DropdownButtonFormField<String>(
               data["problem"] = problem.text;
               data["user"] = auth.currentUser!.email;
               data["url"] = urlFile;
-              
-              
+              data["status"] = "รอดำเนินการ";
+
               print("data ${data}");
               await FirebaseFirestore.instance
                   .collection("users")
@@ -410,10 +500,25 @@ DropdownButtonFormField<String>(
     );
   }
 
-  // Function to open the image picker
+  Future<void> _takePicture() async {
+    final picker = ImagePicker();
+    final pickedFile = await picker.pickImage(
+      source: ImageSource.camera,
+    );
+
+    setState(() {
+      if (pickedFile != null) {
+        _imageFile = File(pickedFile.path);
+        pathFile = pickedFile.path;
+      }
+    });
+  }
+
   Future<void> _pickImage() async {
     final picker = ImagePicker();
-    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+    final pickedFile = await picker.pickImage(
+      source: ImageSource.gallery,
+    );
 
     setState(() {
       if (pickedFile != null) {
@@ -512,6 +617,3 @@ DropdownButtonFormField<String>(
         child: const Text("แสดงรายการ"));
   }
 }
-
-
-

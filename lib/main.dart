@@ -27,8 +27,8 @@ void main() async{
 runApp(MaterialApp(
       home: SplashScreen(),
       theme:  ThemeData(
-    primaryColor:Color.fromARGB(255, 113, 222, 247), // สีหลัก
-    hintColor: Color.fromARGB(255, 139, 140, 139), // สีเน้น
+    primaryColor: Color(0xFF3EBACE), // สีหลัก
+    hintColor:  Color(0xFF11998E), // สีเน้น
     textTheme: TextTheme(
       headline1: TextStyle(fontSize: 24, fontWeight: FontWeight.bold), // ตัวหัวข้อ
       bodyText1: TextStyle(fontSize: 16, color: Colors.black), // ข้อความหลัก
@@ -39,7 +39,8 @@ runApp(MaterialApp(
     ));
       } else {
         runApp(MaterialApp(
-      home:HomePage (),
+      home:HomePageAdmin (),
+
       theme: ThemeData(
         // colorSchemeSeed: 
         // useMaterial3: true,
@@ -48,6 +49,7 @@ runApp(MaterialApp(
 
     ));
       }
+      
     })});
     
 }
@@ -55,3 +57,4 @@ runApp(MaterialApp(
 // void main(List<String> args) {
 //   runApp(MaterialApp(home: SplashScreen(),));
 // }import 'package:firebase_auth/firebase_auth.dart';
+//////////////////////////////////////////////////////
